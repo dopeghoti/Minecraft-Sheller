@@ -52,7 +52,7 @@ else
 fi
 
 display() {
-	screen -R $SCREEN_NAME
+	screen -x $SCREEN_NAME
 }
 
 server_launch() {
@@ -221,6 +221,7 @@ then
 	"backup")
 
 		mkdir -p $BKUP_PATH
+		cd $BKUP_PATH
 			
 		if [ -e $MC_PATH/$WORLD_NAME ]
 		then
@@ -241,9 +242,9 @@ then
             FILENAME=$WORLD_NAME-$DATE
             BACKUP_FILES=$BKUP_PATH/list.$DATE
 
-			if test `date +%H` -eq 0 -o ! -f $BACKUP_FULL_LINK
-            then
-				# Make full backup, and remove old incrementals
+                if [ $2 == "full" ]
+                then
+		# If full flag set, Make full backup, and remove old incrementals
                 FILENAME=$FILENAME-full.tgz
 
                 # Remove incrementals older than $BKUP_DAYS_INCR
@@ -425,7 +426,7 @@ then
 				
 	#################################################################
 	*)
-		echo "Usage : minecraft <status | start [force] | stop | restart [warn] | logs [clean] | backup [clean] | cartography | update>";
+		echo "Usage : minecraft <status | start [force] | stop | restart [warn] | logs [clean] | backup [full] | cartography | update>";
 	esac
 
 else
