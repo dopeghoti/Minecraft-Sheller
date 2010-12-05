@@ -27,10 +27,28 @@ LOGS_DAYS=7
 
 if [ -e $MC_PATH/server.log.lck ]
 then
+<<<<<<< HEAD
 	#	ps -e | grep java | wc -l
 	ONLINE=1
 else 
 	ONLINE=0
+=======
+        locks=$(ls $MC_PATH/logs/*.log.lck 2> /dev/null | wc -l)
+        if [ "$locks" != "0" ]
+        then
+                ONLINE=1
+        else
+                ONLINE=0
+        fi
+else
+        if [ -e $MC_PATH/server.log.lck ]
+        then
+                #       ps -e | grep java | wc -l
+                ONLINE=1
+        else
+                ONLINE=0
+        fi
+>>>>>>> 647719fbb1f5ea29a0bf2e65a657a906bc077309
 fi
 
 display() {
@@ -41,11 +59,17 @@ server_launch() {
 	echo "Launching minecraft server..."
 	if [ $SERVERMOD -eq 1 ]
 	then
+<<<<<<< HEAD
 		echo "Minecraft_Mod.jar"
 		cd $MC_PATH; screen -m -d -S $SCREEN_NAME java -Xmx${MEMMAX}M -Xms${MEMALOC}M -jar Minecraft_Mod.jar nogui; sleep 1
 	else
 		echo "minecraft_server.jar"
 		cd $MC_PATH; screen -m -d -S $SCREEN_NAME java -Xmx${MEMMAX}M -Xms${MEMALOC}M -jar minecraft_server.jar nogui; sleep 1
+=======
+		cd $MC_PATH; screen -m -d -S $SCREEN_NAME java -server -Xmx${MEMALOC}M -Xms${MEMALOC}M -Djava.net.preferIPv4Stack=true -jar Minecraft_Mod.jar nogui; sleep 1
+	else
+		cd $MC_PATH; screen -m -d -S $SCREEN_NAME java -server -Xmx${MEMALOC}M -Xms${MEMALOC}M -Djava.net.preferIPv4Stack=true -jar minecraft_server.jar nogui; sleep 1
+>>>>>>> 647719fbb1f5ea29a0bf2e65a657a906bc077309
 	fi		
 }
 	
@@ -359,8 +383,12 @@ then
 		wget -N http://www.minecraft.net/download/minecraft_server.jar
 		if [ $SERVERMOD -eq 1 ]
 		then
+<<<<<<< HEAD
 		echo "Downloading Hey0 Mod..."
 			cd $MC_PATH
+=======
+			echo "Downloading hey0's serverMod..."
+>>>>>>> 647719fbb1f5ea29a0bf2e65a657a906bc077309
 			mkdir -p ModTmp; cd ModTmp/
 			wget -O Minecraft_Mod.zip http://hey0.net/get.php?dl=serverbeta
 			unzip Minecraft_Mod.zip
@@ -371,6 +399,7 @@ then
 		fi
 		if [ $RUNECRAFT -eq 1 ]
 		then
+<<<<<<< HEAD
 		echo "Downloading Runecraft..."
                         echo "Downloading Runecraft..."
                         mkdir -p ModTmp; cd ModTmp/
@@ -378,6 +407,14 @@ then
                         unzip runecraft_latest.zip
                         jar uvf $MC_PATH/minecraft_server.jar in.class o.class mm.class rm.class rn.class rt.class
                         cd $MC_PATH; rm -rf ModTmp 
+=======
+			echo "Downloading Runecraft..."
+			mkdir -p ModTmp; cd ModTmp/
+			wget http://llama.cerberusstudios.net/runecraft_latest.zip
+			unzip runecraft_latest.zip
+			jar uvf $MC_PATH/minecraft_server.jar ju.class mm.class q.class rm.class rn.class rt.class
+			cd $MC_PATH; rm -rf ModTmp 
+>>>>>>> 647719fbb1f5ea29a0bf2e65a657a906bc077309
 		fi
 		
 		server_launch
