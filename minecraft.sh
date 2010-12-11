@@ -32,7 +32,7 @@ LOGS_DAYS=7
 # Mapping
 CARTO_PATH=$MC_PATH/carto
 MAPS_PATH=/var/www/minecraftMaps
-CARTO_OPTIONS="-q -s"
+CARTO_OPTIONS="-biomes -blendcave"
 
 MCOVERVIEWER_PATH=$MC_PATH/Overviewer/
 MCOVERVIEWER_MAPS_PATH=/var/www/minecraft/maps/Overview/
@@ -315,7 +315,7 @@ then
 				FILENAME=$WORLD_NAME-map-$DATE
 				cd $CARTO_PATH
 				echo "Cartography in progress..."
-				./c10t -w $MC_PATH/$WORLD_NAME/ -o $FILENAME.png $CARTO_OPTIONS
+				./mcmap $CARTO_OPTIONS $MC_PATH/$WORLD_NAME/
 				mv *.png $MAPS_PATH
 				cd $MC_PATH
 				echo "Cartography is done."
